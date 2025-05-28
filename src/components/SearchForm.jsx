@@ -1,35 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
-const SearchForm = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
+function SearchForm({ onSearch }) {
+  const [search, setSearch] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onSearch) {
-      onSearch(query);
-    }
+    onSearch(search);
   };
 
   return (
     <form 
+      onSubmit={handleSubmit}
       className="flex items-center justify-center gap-2 w-full mt-3"
     >
       <input
         type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search..."
-        className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        ref={inputRef}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search meals..."
+        className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64"
       />
       <button
-       onClick={handleSubmit}
         type="submit"
-        className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+        disabled={!search.trim()}
+        className={`px-4 py-2 rounded transition ${
+          search.trim()
+            ? "bg-indigo-600 text-white hover:bg-indigo-700"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+        }`}
       >
         Search
       </button>
     </form>
   );
-};
+}
 
 export default SearchForm;
