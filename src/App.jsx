@@ -1,24 +1,19 @@
 import React from "react";
-import { Card } from "./components/Card";
-import Mainlayout from "./layouts/Mainlayout";
-import posts from "./components/MealPost"; // Import the data
+import { Routes, Route , Navigate } from "react-router-dom";
+import Home from "./views/Home";
+import Indregients from "./views/Indregients";
+import MealsByIngredient from "./views/MealsByIngredient";
+import MealDetail from "./views/MealDetail"; // Import the new MealDetail component
 
-function App() {
+function App() {  
   return (
-    <Mainlayout>
-      <div className="grid gap-6 md:grid-cols-4 mt-2">
-        {posts.map((post, idx) => (
-          <Card
-            key={idx}
-            image={post.image}
-            altText={post.alt}
-            title={post.title}
-            description={post.description}
-          />
-        ))}
-      </div>
-    </Mainlayout>
+   <Routes>
+      <Route path="/" element={<Navigate to="/home" replace />} /> {/* Add this line */}
+      <Route path="/home" element={<Home />} />
+      <Route path="/ingredients" element={<Indregients />} />
+      <Route path="/ingredients/:ingredient" element={<MealsByIngredient />} />
+      <Route path="/meal/:id" element={<MealDetail />} /> {/* New route */}
+    </Routes>
   );
 }
-
 export default App;

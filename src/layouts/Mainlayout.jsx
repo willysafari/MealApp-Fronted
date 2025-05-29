@@ -8,7 +8,6 @@ export default function Mainlayout({ children }) {
   return (
     <div>
       <Header />
-      <SearchForm />
       <main>
         {children}
       </main>

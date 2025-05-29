@@ -1,25 +1,7 @@
-// import React from "react";
-
-
-// export function Card(props){
-//      return (
-//         <div className="max-w-sm md:max-w-lg rounded-lg overflow-hidden shadow-lg bg-white">
-//             <img
-//                 className="w-full h-50 object-cover"
-//                 src={props.image}
-//                 alt={props.altText}
-//             />
-//             <div className="p-6">
-//                 <h2 className="text-xl font-semibold mb-2">{props.title}</h2>
-//                 <p className="text-gray-600">{props.description}</p>
-//             </div>
-//         </div>
-//      );
-// }
 
 import React from "react";
 
-export function Card({ image, altText, title, description }) {
+export function Card({ image, alt, title, description }) {
   return (
     <div className="max-w-sm rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
       {/* Image with gradient overlay */}
@@ -27,7 +9,7 @@ export function Card({ image, altText, title, description }) {
         <img
           className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
           src={image}
-          alt={altText}
+          alt={alt}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>

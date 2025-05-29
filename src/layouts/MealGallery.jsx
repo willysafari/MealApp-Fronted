@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import SearchForm from "./SearchForm";
-import MealPost from "./MealPost"; // Your existing MealPost component
+import posts from "../components/MealPost"; // Corrected path
+import SearchForm from "../components/SearchForm"; // Corrected path
+import { Card } from "../components/Card"; // Import Card component
 
 const MealGallery = () => {
   const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -18,8 +19,6 @@ const MealGallery = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-center mb-6">Delicious Meals</h2>
-      
       <div className="flex justify-center mb-8">
         <SearchForm onSearch={handleSearch} />
       </div>
@@ -40,9 +39,15 @@ const MealGallery = () => {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredPosts.map((post, index) => (
-            <MealPost key={index} {...post} />
+            <Card
+              key={index}
+              image={post.image}
+              altText={post.alt}
+              title={post.title}
+              description={post.description}
+            />
           ))}
         </div>
       )}
