@@ -56,9 +56,9 @@ function MealDetail() {
 
   return (
     <Mainlayout>
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="max-w-5xl mx-auto px-1 py-3">
         {/* Image with gradient overlay */}
-        <div className="relative rounded-xl overflow-hidden shadow-lg mb-8 group">
+        <div className="relative rounded-xl overflow-hidden shadow-lg mb-2 group">
           <img
             src={meal.strMealThumb}
             alt={meal.strMeal}
@@ -72,7 +72,7 @@ function MealDetail() {
         </div>
 
         {/* Meal Meta */}
-        <div className="flex flex-wrap gap-4 mb-8 text-sm">
+        <div className="flex flex-wrap gap-4 mb-2 text-sm">
           <span className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">
             {meal.strCategory}
           </span>
@@ -87,9 +87,9 @@ function MealDetail() {
         </div>
 
         {/* Two-column layout */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-2">
           {/* Ingredients */}
-          <div className="md:col-span-1 bg-white p-6 rounded-xl shadow-sm">
+          <div className="md:col-span-1 bg-white p-4 rounded-xl shadow-sm">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Ingredients</h2>
             <ul className="space-y-3">
               {ingredients.map((item, idx) => (
@@ -108,7 +108,7 @@ function MealDetail() {
 
           {/* Instructions */}
           <div className="md:col-span-2">
-            <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
+            <div className="bg-white p-4 rounded-xl shadow-sm mb-4">
               <h2 className="text-2xl font-bold mb-4 text-gray-800">Instructions</h2>
               <div className="prose max-w-none text-gray-700 whitespace-pre-line">
                 {meal.strInstructions}

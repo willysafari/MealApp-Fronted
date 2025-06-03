@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FiHome, FiSearch, FiBookmark, FiList } from "react-icons/fi";
+import logo from '../assets/images/logo.png';
 
 const Header = () => (
   <header className="bg-gradient-to-r from-blue-600 to-indigo-700 dark:from-gray-800 dark:to-gray-900 shadow-lg">
@@ -8,6 +9,7 @@ const Header = () => (
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         {/* Logo/Branding */}
         <div className="text-center md:text-left mb-4 md:mb-0">
+            {/* <img src={logo} alt="MealApp Logo" className="w-12 h-12 mx-auto md:mx-0 mb-2 float-left" />  */}
           <h1 className="text-3xl font-bold text-white mb-1">
             MealApp
           </h1>

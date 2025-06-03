@@ -3,7 +3,8 @@ import { Routes, Route , Navigate } from "react-router-dom";
 import Home from "./views/Home";
 import Indregients from "./views/Indregients";
 import MealsByIngredient from "./views/MealsByIngredient";
-import MealDetail from "./views/MealDetail"; // Import the new MealDetail component
+import MealDetail from "./views/MealDetail"; 
+// Import the new MealDetail component
 
 function App() {  
   return (
@@ -12,7 +13,8 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/ingredients" element={<Indregients />} />
       <Route path="/ingredients/:ingredient" element={<MealsByIngredient />} />
-      <Route path="/meal/:id" element={<MealDetail />} /> {/* New route */}
+      <Route path="/meal/:id" element={<MealDetail />} /> 
+      
     </Routes>
   );
 }

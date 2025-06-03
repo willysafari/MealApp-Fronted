@@ -1,36 +1,76 @@
-import React, { useState } from "react";
-import posts from "../components/MealPost"; // Corrected path
-import SearchForm from "../components/SearchForm"; // Corrected path
-import { Card } from "../components/Card"; // Import Card component
+import React, { useState, useEffect } from "react";
+import SearchForm from "../components/SearchForm";
+import { Card } from "../components/Card";
+import { fetchMeals } from "../api/mealService.js";
+// Import API service
 
 const MealGallery = () => {
-  const [filteredPosts, setFilteredPosts] = useState(posts);
+  const [meals, setMeals] = useState([]);
+  const [filteredMeals, setFilteredMeals] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Filter posts based on search query
+  // Fetch meals on component mount
+  useEffect(() => {
+    const loadMeals = async () => {
+      try {
+        const data = await fetchMeals();
+        setMeals(data);
+        setFilteredMeals(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+    loadMeals();
+  }, []);
+
+  // Filter meals based on search query
   const handleSearch = (query) => {
     setSearchQuery(query);
-    const filtered = posts.filter(post => 
-      post.title.toLowerCase().includes(query.toLowerCase()) ||
-      post.description.toLowerCase().includes(query.toLowerCase())
+    if (!query.trim()) {
+      setFilteredMeals(meals);
+      return;
+    }
+    const filtered = meals.filter(meal => 
+      meal.strMeal.toLowerCase().includes(query.toLowerCase()) ||
+      (meal.strInstructions && meal.strInstructions.toLowerCase().includes(query.toLowerCase()))
     );
-    setFilteredPosts(filtered);
+    setFilteredMeals(filtered);
   };
 
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <p>Loading meals...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center text-red-500">
+        Error: {error}
+      </div>
+    );
+  }
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-center mb-8">
+    <div className="container mx-auto px-2 py-2">
+      <div className="flex justify-center mb-3">
         <SearchForm onSearch={handleSearch} />
       </div>
 
-      {filteredPosts.length === 0 ? (
+      {filteredMeals.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg">
             No meals found for "{searchQuery}"
           </p>
           <button 
             onClick={() => {
-              setFilteredPosts(posts);
+              setFilteredMeals(meals);
               setSearchQuery("");
             }}
             className="mt-4 text-indigo-600 hover:text-indigo-800"
@@ -39,14 +79,15 @@ const MealGallery = () => {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredPosts.map((post, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+          {filteredMeals.map((meal) => (
             <Card
-              key={index}
-              image={post.image}
-              altText={post.alt}
-              title={post.title}
-              description={post.description}
+              key={meal.idMeal}
+              id={meal.idMeal} 
+              image={meal.strMealThumb}
+              altText={meal.strMeal}
+              title={meal.strMeal}
+              description={meal.strCategory} // Using category as description
             />
           ))}
         </div>
